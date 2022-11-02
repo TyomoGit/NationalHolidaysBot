@@ -35,7 +35,11 @@ def tweet_first(today: datetime, is_debug: bool = False) -> None:
                 message_body += content
         message_body += "\n"
     
-    message += f"祝日は{counter}日あります:\n" + message_body.replace(f"{str(today.year)}-", "").replace("-", "/")
+    if counter > 0:
+        message += f"祝日は{counter}日あります:\n" + message_body.replace(f"{str(today.year)}-", "").replace("-", "/")
+    else:
+        message += "今月の祝日はありません。"
+    
     tweet(message=message, is_debug=is_debug)
 
 def tweet_holiday(today: datetime, is_debug: bool = False) -> None:
@@ -45,7 +49,7 @@ def tweet_holiday(today: datetime, is_debug: bool = False) -> None:
 
 def main():
     today = datetime.now().date()
-    # today = datetime(2022,9,19).date()
+    # today = datetime(2022,6,1).date()
 
     is_debug = len(sys.argv) > 1
     
