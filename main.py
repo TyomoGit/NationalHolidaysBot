@@ -1,7 +1,5 @@
 """ for Twitter API v2 """
 
-from distutils.log import debug
-from email import message
 import jpholiday as jph
 from datetime import date, datetime
 import sys

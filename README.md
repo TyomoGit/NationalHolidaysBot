@@ -1,4 +1,4 @@
-# National Holidays Bot
+# 🇯🇵 National Holidays Bot
 
 ## Overview
 
@@ -9,6 +9,7 @@ The Twitter account is `@NatlHolidaysJP`.
 - On the national holiday, this bot will tweet the name of the holiday.
 
 ## Licence
+
 See [LICENCE.md](./LICENCE.md).
 
 ## Note
