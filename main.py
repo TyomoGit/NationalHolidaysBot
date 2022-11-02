@@ -19,7 +19,7 @@ def tweet(message: str = str(datetime.now()), is_debug: bool = False) -> None:
 
     pprint(client.create_tweet(text=message))
 
-def tweet_first(today: datetime, is_debug = False) -> None:
+def tweet_first(today: datetime, is_debug: bool = False) -> None:
     message = f"🗓{today.month}月になりましたね。"
     message_body = ""
     holidays = jph.month_holidays(today.year, today.month)
@@ -37,7 +37,7 @@ def tweet_first(today: datetime, is_debug = False) -> None:
     message += f"祝日は{counter}日あります:\n" + message_body.replace(f"{str(today.year)}-", "").replace("-", "/")
     tweet(message=message, is_debug=is_debug)
 
-def tweet_holiday(today: datetime, is_debug = False) -> None:
+def tweet_holiday(today: datetime, is_debug: bool = False) -> None:
     holiday_name = jph.is_holiday_name(today)
     message = f"🎌今日は #{holiday_name} です。"
     tweet(message=message, is_debug=is_debug)
