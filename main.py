@@ -1,26 +1,27 @@
 """ for Twitter API v2 """
 
+from distutils.log import debug
 from email import message
 import jpholiday as jph
 from datetime import date, datetime
 import sys
 from pprint import pprint
 import tweepy
-import keys
+import keys # キー格納用の別ファイル
 
-def tweet(message: str = str(datetime.now())) -> None:
+def tweet(message: str = str(datetime.now()), is_debug: bool = False) -> None:
     client = tweepy.Client(
         consumer_key=keys.API_KEY,
         consumer_secret=keys.API_SECRET,
         access_token=keys.ACCESS_TOKEN,
         access_token_secret=keys.ACCESS_TOKEN_SECRET
     )
-    if len(sys.argv) > 1:
+    if is_debug:
         message = "⚠️これは試験的なツイートです。以下の内容は正確でない場合があります。\n" + message
 
     pprint(client.create_tweet(text=message))
 
-def behavior_begining_of_month(today: datetime) -> None:
+def tweet_first(today: datetime, is_debug = False) -> None:
     message = f"🗓{today.month}月になりましたね。"
     message_body = ""
     holidays = jph.month_holidays(today.year, today.month)
@@ -36,21 +37,25 @@ def behavior_begining_of_month(today: datetime) -> None:
         message_body += "\n"
     
     message += f"祝日は{counter}日あります:\n" + message_body.replace(f"{str(today.year)}-", "").replace("-", "/")
-    tweet(message)
+    tweet(message=message, is_debug=is_debug)
 
-def behavior_first(today: datetime) -> None:
+def tweet_holiday(today: datetime, is_debug = False) -> None:
     holiday_name = jph.is_holiday_name(today)
     message = f"🎌今日は #{holiday_name} です。"
-    tweet(message)
+    tweet(message=message, is_debug=is_debug)
 
 def main():
     today = datetime.now().date()
-    # today = datetime(2023,1,9).date()
+    # today = datetime(2022,9,19).date()
+
+    is_debug = len(sys.argv) > 1
     
     if today.day == 1:
-        behavior_begining_of_month(today)
+        tweet_first(today=today, is_debug=is_debug)
     if jph.is_holiday(today):
-        behavior_first(today)
+        tweet_holiday(today=today, is_debug=is_debug)
+    else: # debug
+        tweet()
 
 if __name__ == "__main__":
     main()
