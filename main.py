@@ -7,7 +7,7 @@ from datetime import date, datetime
 import sys
 from pprint import pprint
 import tweepy
-import keys # キー格納用の別ファイル
+import keys # token
 
 def tweet(message: str = str(datetime.now()), is_debug: bool = False) -> None:
     client = tweepy.Client(
