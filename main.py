@@ -17,7 +17,8 @@ def tweet(message: str = str(datetime.now()), is_debug: bool = False) -> None:
     if is_debug:
         message = "⚠️これは試験的なツイートです。以下の内容は正確でない場合があります。\n" + message
 
-    pprint(client.create_tweet(text=message))
+    # pprint(client.create_tweet(text=message))
+    client.create_tweet(text=message)
 
 def tweet_first(today: datetime, is_debug: bool = False) -> None:
     message = f"🗓{today.month}月になりましたね。"
@@ -52,8 +53,8 @@ def main():
         tweet_first(today=today, is_debug=is_debug)
     if jph.is_holiday(today):
         tweet_holiday(today=today, is_debug=is_debug)
-    else: # debug
-        tweet()
+    # else: # debug
+    #     tweet()
 
 if __name__ == "__main__":
     main()
