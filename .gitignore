@@ -1,8 +1,0 @@
-#########
-keys.py
-#########
-.gitignore
-oauth.py
-__pycache__
-official.py
-test.py
