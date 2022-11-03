@@ -69,7 +69,6 @@ def generate_season_emoji(today: datetime) -> str:
 
 def generate_first_day_emoji() -> str:
     return random_generator("🗓", "📅", "📝", "😀", "☀️")
-    random_num = random.randint(0,4)
 
 def generate_emoji() -> str:
     return random_generator("🎌", "👀", "😀", "㊗️", "☀️")
