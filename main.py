@@ -3,6 +3,7 @@
 import jpholiday as jph
 from datetime import date, datetime
 import sys
+import random
 from pprint import pprint
 import tweepy
 import keys # token
@@ -44,7 +45,20 @@ def tweet_first(today: datetime, is_debug: bool = False) -> None:
 
 def tweet_holiday(today: datetime, is_debug: bool = False) -> None:
     holiday_name = jph.is_holiday_name(today)
-    message = f"🎌今日は #{holiday_name} です。"
+    random_num = random.randint(0,4) # 0~4
+    ending_of_word = ""
+    if random_num == 0:
+        ending_of_word = "です。"
+    elif random_num == 1:
+        ending_of_word = "です！"
+    elif random_num == 2:
+        ending_of_word = "だよ。"
+    elif random_num == 3:
+        ending_of_word = "！"
+    else:
+        ending_of_word = "ですよ👋"
+    
+    message = f"🎌今日は #{holiday_name} {ending_of_word}"
     tweet(message=message, is_debug=is_debug)
 
 def main() -> None:
