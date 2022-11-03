@@ -20,6 +20,7 @@ def tweet(message: str = str(datetime.now()), is_debug: bool = False) -> None:
 
     # pprint(client.create_tweet(text=message))
     client.create_tweet(text=message)
+    # print(message)
 
 def tweet_first(today: datetime, is_debug: bool = False) -> None:
     message = f"🗓{today.month}月になりましたね。\n"
@@ -45,6 +46,27 @@ def tweet_first(today: datetime, is_debug: bool = False) -> None:
 
 def tweet_holiday(today: datetime, is_debug: bool = False) -> None:
     holiday_name = jph.is_holiday_name(today)
+    
+    message = f"{generate_emoji()}今日は #{holiday_name} {generate_ending_of_word()}"
+    tweet(message=message, is_debug=is_debug)
+
+def generate_emoji() -> str:
+    random_num = random.randint(0,4)
+    emoji = ""
+    if random_num == 0:
+        emoji = "🎌"
+    elif random_num == 1:
+        emoji = "👀"
+    elif random_num == 2:
+        emoji = "😀"
+    elif random_num == 3:
+        emoji = "㊗️"
+    else:
+        emoji = "☀️"
+    
+    return emoji
+
+def generate_ending_of_word() -> str:
     random_num = random.randint(0,4) # 0~4
     ending_of_word = ""
     if random_num == 0:
@@ -57,12 +79,11 @@ def tweet_holiday(today: datetime, is_debug: bool = False) -> None:
         ending_of_word = "！"
     else:
         ending_of_word = "ですよ👋"
-    
-    message = f"🎌今日は #{holiday_name} {ending_of_word}"
-    tweet(message=message, is_debug=is_debug)
+
+    return ending_of_word
 
 def main() -> None:
-    today = datetime.now().date()
+    today = datetime.now()
     # today = datetime(2022,6,1).date()
 
     is_debug = len(sys.argv) > 1
