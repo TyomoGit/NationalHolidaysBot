@@ -7,6 +7,7 @@ import random
 from pprint import pprint
 import tweepy
 import keys # token
+from typing import Any
 
 def tweet(message: str = str(datetime.now()), is_debug: bool = False) -> None:
     client = tweepy.Client(
@@ -68,17 +69,16 @@ def generate_season_emoji(today: datetime) -> str:
     return emojies[today.month-1]
 
 def generate_first_day_emoji() -> str:
-    return random_generator("🗓", "📅", "📝", "😀", "☀️")
+    return choose_one("🗓", "📅", "📝", "😀", "☀️")
 
 def generate_emoji() -> str:
-    return random_generator("🎌", "👀", "😀", "㊗️", "☀️")
+    return choose_one("🎌", "👀", "😀", "㊗️", "☀️")
 
 def generate_ending_of_word() -> str:
-    return random_generator("です。", "です！", "だよ。", "！", "ですよー。")
+    return choose_one("です。", "です！", "だよ。", "！", "ですよー。")
 
-def random_generator(*args) -> str:
-    random_num = random.randint(0,len(args)-1)
-    return args[random_num]
+def choose_one(*args) -> Any:
+    return args[random.randint(0,len(args)-1)]
 
 def main() -> None:
     today = datetime.now()
