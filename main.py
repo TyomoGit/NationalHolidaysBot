@@ -19,8 +19,8 @@ def tweet(message: str = str(datetime.now()), is_debug: bool = False) -> None:
         message = "⚠️これは試験的なツイートです。以下の内容は正確でない場合があります。\n" + message
 
     # pprint(client.create_tweet(text=message))
-    # client.create_tweet(text=message)
-    print(message)
+    client.create_tweet(text=message)
+    # print(message)
 
 def tweet_first(today: datetime, is_debug: bool = False) -> None:
     message = f"{generate_season_emoji(today=today)}\n{generate_first_day_emoji()}{today.month}月になりましたね。\n"
@@ -82,8 +82,8 @@ def random_generator(*args) -> str:
     return args[random_num]
 
 def main() -> None:
-    # today = datetime.now()
-    today = datetime(2022,12,31)
+    today = datetime.now()
+    # today = datetime(2022,12,31)
 
     is_debug = len(sys.argv) > 1
     
