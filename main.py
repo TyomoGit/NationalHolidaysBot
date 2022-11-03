@@ -19,11 +19,11 @@ def tweet(message: str = str(datetime.now()), is_debug: bool = False) -> None:
         message = "⚠️これは試験的なツイートです。以下の内容は正確でない場合があります。\n" + message
 
     # pprint(client.create_tweet(text=message))
-    client.create_tweet(text=message)
-    # print(message)
+    # client.create_tweet(text=message)
+    print(message)
 
 def tweet_first(today: datetime, is_debug: bool = False) -> None:
-    message = f"🗓{today.month}月になりましたね。\n"
+    message = f"{generate_season_emoji(today=today)}\n{generate_first_day_emoji()}{today.month}月になりましたね。\n"
     message_body = ""
     holidays = jph.month_holidays(today.year, today.month)
     counter = 0
@@ -40,7 +40,7 @@ def tweet_first(today: datetime, is_debug: bool = False) -> None:
     if counter > 0:
         message += f"祝日は{counter}日あります:\n" + message_body.replace(f"{str(today.year)}-", "").replace("-", "/")
     else:
-        message += "今月の祝日はありません。🐌"
+        message += "今月の祝日はありません。"
     
     tweet(message=message, is_debug=is_debug)
 
@@ -50,41 +50,40 @@ def tweet_holiday(today: datetime, is_debug: bool = False) -> None:
     message = f"{generate_emoji()}今日は #{holiday_name} {generate_ending_of_word()}"
     tweet(message=message, is_debug=is_debug)
 
-def generate_emoji() -> str:
+def generate_season_emoji(today: datetime) -> str:
+    emojies = ( # 上から一月，二月，，，
+        "🎍🌅🎉🔔<ｺﾞｰﾝ[あめましておめでとうございます]",
+        "👹☃️",
+        "🎎☀️",
+        "😌🌸🌸🍡🍹",
+        "🌤🎏",
+        "☂️🐌",
+        "🎆🎋⭐️🌠",
+        "🐳☀️🎇🌻🏄🍉🍨🌴😎🐬",
+        "🎑🎐🌕",
+        "🎃👻💀",
+        "🦃🍁🍂🍄",
+        "🎄🎅🎁🎂🍗🔔<ｺﾞｰﾝ🍜👘"
+    )
+    return emojies[today.month-1]
+
+def generate_first_day_emoji() -> str:
+    return random_generator("🗓", "📅", "📝", "😀", "☀️")
     random_num = random.randint(0,4)
-    emoji = ""
-    if random_num == 0:
-        emoji = "🎌"
-    elif random_num == 1:
-        emoji = "👀"
-    elif random_num == 2:
-        emoji = "😀"
-    elif random_num == 3:
-        emoji = "㊗️"
-    else:
-        emoji = "☀️"
-    
-    return emoji
+
+def generate_emoji() -> str:
+    return random_generator("🎌", "👀", "😀", "㊗️", "☀️")
 
 def generate_ending_of_word() -> str:
-    random_num = random.randint(0,4) # 0~4
-    ending_of_word = ""
-    if random_num == 0:
-        ending_of_word = "です。"
-    elif random_num == 1:
-        ending_of_word = "です！"
-    elif random_num == 2:
-        ending_of_word = "だよ。"
-    elif random_num == 3:
-        ending_of_word = "！"
-    else:
-        ending_of_word = "ですよ👋"
+    return random_generator("です。", "です！", "だよ。", "！", "ですよー。")
 
-    return ending_of_word
+def random_generator(*args) -> str:
+    random_num = random.randint(0,len(args)-1)
+    return args[random_num]
 
 def main() -> None:
-    today = datetime.now()
-    # today = datetime(2022,6,1).date()
+    # today = datetime.now()
+    today = datetime(2022,12,31)
 
     is_debug = len(sys.argv) > 1
     
