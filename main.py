@@ -7,7 +7,6 @@ import random
 from pprint import pprint
 import tweepy
 import keys # token
-from typing import Any
 
 def tweet(message: str = str(datetime.now()), is_debug: bool = False) -> None:
     client = tweepy.Client(
@@ -39,7 +38,7 @@ def tweet_first(today: datetime, is_debug: bool = False) -> None:
         message_body += "\n"
     
     if counter > 0:
-        message += f"祝日は{counter}日あります:\n" + message_body.replace(f"{str(today.year)}-", "").replace("-", "/")
+        message += f"祝日は{counter}日あります。\n" + message_body.replace(f"{str(today.year)}-", "").replace("-", "/")
     else:
         message += "今月の祝日はありません。"
     
@@ -53,7 +52,7 @@ def tweet_holiday(today: datetime, is_debug: bool = False) -> None:
 
 def generate_season_emoji(today: datetime) -> str:
     emojies = ( # 上から一月，二月，，，
-        "🎍🌅🎉🔔<ｺﾞｰﾝ[あめましておめでとうございます]",
+        "🎍🌅🎉🔔<ｺﾞｰﾝ[あめましておめでとうございます。今年も日本の祝日お知らせくんをよろしくお願いします。]🗻",
         "👹☃️",
         "🎎☀️",
         "😌🌸🌸🍡🍹",
@@ -69,20 +68,17 @@ def generate_season_emoji(today: datetime) -> str:
     return emojies[today.month-1]
 
 def generate_first_day_emoji() -> str:
-    return choose_one("🗓", "📅", "📝", "😀", "☀️")
+    return random.choice(["🗓", "📅", "📝", "😀", "☀️"])
 
 def generate_emoji() -> str:
-    return choose_one("🎌", "👀", "😀", "㊗️", "☀️")
+    return random.choice(["🎌", "👀", "😀", "㊗️", "☀️"])
 
 def generate_ending_of_word() -> str:
-    return choose_one("です。", "です！", "だよ。", "！", "ですよー。")
-
-def choose_one(*args) -> Any:
-    return args[random.randint(0,len(args)-1)]
+    return random.choice(["です。", "です！", "だよ。", "！", "ですよー。"])
 
 def main() -> None:
     today = datetime.now()
-    # today = datetime(2022,12,31)
+    # today = datetime(2023,1,1)
 
     is_debug = len(sys.argv) > 1
     
